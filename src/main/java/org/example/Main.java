@@ -7,11 +7,17 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://127.0.0.1:3306/online_auction";
-        String username = "root";
-        String password = "root";
-        int choice = 0;
         Scanner scan = new Scanner(System.in);
+//        String url = "jdbc:mysql://127.0.0.1:3306/online_auction";
+//        String username = "root";
+//        String password = "root";
+        System.out.println("Enter MySQL Database URL (e.g., jdbc:mysql://");
+        String url = scan.nextLine();
+        System.out.println("Enter MySQL Database Username:");
+        String username = scan.nextLine();
+        System.out.println("Enter MySQL Database Password:");
+        String password = scan.nextLine();
+        int choice = 0;
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             System.out.println("Connected to MySQL database successfully!");
