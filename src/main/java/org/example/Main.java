@@ -66,10 +66,10 @@ public class Main {
         String selectHighestBidSQL = "SELECT " +
                 "a.auction_id, i.title, i.description, a.start_price, a.reserve_price, " +
                 "b.bid_amount, b.bid_time, u.name AS bidder_name " +
-                "FROM `auction` a " +
-                "JOIN `items` i ON a.item_id = i.item_id " +
-                "LEFT JOIN `bid_logs` b ON a.current_highest_bid_id = b.bid_id " +
-                "LEFT JOIN `users` u ON b.bidder_id = u.user_id " +
+                "FROM auction a " +
+                "JOIN items i ON a.item_id = i.item_id " +
+                "LEFT JOIN bid_logs b ON a.current_highest_bid_id = b.bid_id " +
+                "LEFT JOIN users u ON b.bidder_id = u.user_id " +
                 "WHERE a.item_id = ?";
 
         try (PreparedStatement pstate = connection.prepareStatement(selectHighestBidSQL)) {
@@ -107,9 +107,9 @@ public class Main {
 
         String selectBiddingHistorySQL = "SELECT " +
                 "b.bid_id, u.name AS bidder_name, b.bid_amount, b.bid_time, b.type " +
-                "FROM `bid_logs` b " +
-                "JOIN `auction` a ON b.auction_id = a.auction_id " +
-                "JOIN `users` u ON b.bidder_id = u.user_id " +
+                "FROM bid_logs b " +
+                "JOIN auction a ON b.auction_id = a.auction_id " +
+                "JOIN users u ON b.bidder_id = u.user_id " +
                 "WHERE a.item_id = ? " +
                 "ORDER BY b.bid_time ASC";
 
@@ -148,10 +148,10 @@ public class Main {
         String selectWinnerSQL = "SELECT " +
                 "w.auction_id, u.name AS winner_name, b.bid_amount AS winning_bid_amount, w.confirmed_at, " +
                 "t.payment_id, t.status AS payment_status " +
-                "FROM `winner` w " +
-                "JOIN `users` u ON w.bidder_id = u.user_id " +
-                "JOIN `bid_logs` b ON w.bid_id = b.bid_id " +
-                "JOIN `Transactions` t ON w.payment_id = t.payment_id " +
+                "FROM winner w " +
+                "JOIN users u ON w.bidder_id = u.user_id " +
+                "JOIN bid_logs b ON w.bid_id = b.bid_id " +
+                "JOIN Transactions t ON w.payment_id = t.payment_id " +
                 "WHERE w.auction_id = ?";
 
         try (PreparedStatement pstate = connection.prepareStatement(selectWinnerSQL)) {
